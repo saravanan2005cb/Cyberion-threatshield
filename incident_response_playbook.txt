@@ -1,0 +1,25 @@
+==================================================
+CYBERION THREATSHIELD - INCIDENT RESPONSE PLAYBOOK
+==================================================
+SCENARIO: Credential Compromise & Lateral Movement
+
+1. TRIGGER CONDITIONS:
+- Multiple failed login attempts followed by a successful login from an unusual external IP.
+- Sigma rule alert triggered for credential dumping or brute-force (Event ID 4625 / T1110).
+
+2. INVESTIGATION STEPS:
+- Identify the compromised user account and impacted endpoints.
+- Review Windows Security logs (Event ID 4624, 4672) to track lateral movement.
+- Check for unusual process executions (e.g., PsExec, WinRM) originating from the account.
+
+3. CONTAINMENT STEPS:
+- Immediately disable or reset the compromised user account password.
+- Isolate the affected endpoints from the corporate network to prevent spreading.
+
+4. ERADICATION & RECOVERY:
+- Terminate malicious processes and remove unauthorized scheduled tasks or backdoor accounts.
+- Perform a full antivirus/EDR scan on the compromised machines before restoring access.
+
+5. COMMUNICATIONS:
+- Notify the IT security manager and the affected business unit stakeholder with an impact summary.
+-

@@ -1,0 +1,22 @@
+==================================================
+CYBERION THREATSHIELD - MITRE ATT&CK COVERAGE MATRIX
+==================================================
+
+Tactic: Execution
+- Technique: T1059.001 (Command and Scripting Interpreter: PowerShell)
+- Status: Covered (Rule ID: e42b7891-381a-4f51-b8f2-89211aa12282)
+
+Tactic: Credential Access
+- Technique: T1110 (Brute Force)
+- Status: Covered (Rule ID: b91f098d-2911-47fa-a801-71e18bb39a11)
+- Technique: T1003.001 (OS Credential Dumping: LSASS Memory)
+- Status: Covered (Rule ID: a83c1102-1234-4a21-99ab-83210981a111)
+
+Tactic: Persistence
+- Technique: T1053.005 (Scheduled Task/Job: Scheduled Task)
+- Status: Covered (Rule ID: d1710921-6a22-482d-8889-10928a381fa2)
+
+Tactic: Defense Evasion
+- Technique: T1070.001 (Indicator Removal: Clear Windows Event Logs)
+- Status: Covered (Rule ID: f912034e-4321-4b11-881a-123456789abc)
+-

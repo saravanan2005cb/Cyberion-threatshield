@@ -1,0 +1,50 @@
+# ==================================================
+# CYBERION THREATSHIELD - SIGMA DETECTION RULES (PART 2)
+# ==================================================
+
+# RULE 4: Credential Dumping via LSASS Memory (Credential Access / T1003.001)
+title: Potential Credential Dumping via LSASS Access
+id: a83c1102-1234-4a21-99ab-83210981a111
+status: test
+description: Detects process access to LSASS memory space which is commonly used by tools like Mimikatz to extract user credentials.
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+tags:
+  - attack.credential_access
+  - attack.t1003.001
+logsource:
+  category: process_access
+  product: windows
+detection:
+  selection:
+    TargetImage|endswith: '\lsass.exe'
+  condition: selection
+falsepositives:
+  - Antivirus scanners and legitimate administrative diagnostic tools.
+level: high
+
+---
+
+# RULE 5: Defense Evasion via Clearing Windows Event Logs (Defense Evasion / T1070.001)
+title: Windows Security Event Log Cleared via Wevtutil
+id: f912034e-4321-4b11-881a-123456789abc
+status: test
+description: Detects clearing of Windows event logs using the wevtutil command line tool to hide attacker activity.
+references:
+  - https://attack.mitre.org/techniques/T1070/001/
+tags:
+  - attack.defense_evasion
+  - attack.t1070.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\wevtutil.exe'
+    CommandLine|contains:
+      - ' cl '
+      - ' clear '
+  condition: selection
+falsepositives:
+  - System administrators maintaining log files manually.
+level: high

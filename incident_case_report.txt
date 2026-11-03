@@ -1,0 +1,25 @@
+==================================================
+CYBERION THREATSHIELD - INCIDENT CASE REPORT
+==================================================
+
+INCIDENT ID: INC-2026-001
+CLOSURE CLASSIFICATION: True Positive
+
+1. EXECUTIVE SUMMARY:
+An endpoint (Workstation-04) was compromised via a phishing email leading to malicious PowerShell execution and external C2 beaconing. The threat was detected by Sigma rules, investigated, and successfully contained.
+
+2. TIMELINE OF EVENTS:
+- 10:15 AM: User opened a malicious macro-enabled document.
+- 10:16 AM: PowerShell process launched with encoded commands (MITRE T1059.001).
+- 10:18 AM: Outbound connection established to external IP 192.0.2.45 over port 8080.
+- 10:22 AM: SOC analyst triggered an alert and initiated containment.
+
+3. ROOT CAUSE ANALYSIS:
+Lack of macro execution blocks in Microsoft Office allowed the initial execution, followed by unrestricted outbound PowerShell network connectivity.
+
+4. MITRE ATT&CK MAPPING:
+- T1059.001 (Command and Scripting Interpreter: PowerShell)
+- T1071.001 (Application Layer Protocol: Web Protocols)
+
+5. REMEDIATION & CLOSURE:
+The host was isolated from the network, user credentials were reset, and the detection rule was verified as fully effective.

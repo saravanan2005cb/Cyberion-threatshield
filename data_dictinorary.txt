@@ -1,0 +1,25 @@
+==================================================
+PROJECT: Cyberion ThreatShield (CDL-DET-V2)
+MODULE: 4.1 Log & Telemetry Familiarization
+DATA DICTIONARY - WINDOWS SECURITY & SYSMON LOGS
+==================================================
+
+1. @timestamp
+   - Description: The exact date and time when the security event occurred on the system.
+   - Detection Relevance: Used to establish an attacker's timeline and sequence of actions.
+
+2. EventID
+   - Description: The specific Windows Event Log ID identifying the type of action (e.g., Event ID 4624 for successful logon, Event ID 4625 for failed logon attempts, Event ID 1 for process creation).
+   - Detection Relevance: The primary filter for writing Sigma rules to detect specific malicious behaviors.
+
+3. TargetUserName / User
+   - Description: The account name that was targeted or used during the execution of an event.
+   - Detection Relevance: Helps identify unauthorized access, privilege escalation, or compromised credentials.
+
+4. IpAddress / SourceIp
+   - Description: The network IP address from which a remote connection, authentication, or attack traffic originated.
+   - Detection Relevance: Crucial for tracking external attackers, lateral movement, and C2 (Command and Control) communications.
+
+5. CommandLine / ProcessName
+   - Description: The exact command-line parameters or executable name run on the endpoint.
+   - Detection Relevance: Essential for detecting living-off-the-land binaries, PowerShell abuse, and malicious script execution.

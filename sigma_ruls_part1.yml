@@ -1,0 +1,75 @@
+# ==================================================
+# CYBERION THREATSHIELD - SIGMA DETECTION RULES (PART 1)
+# ==================================================
+
+# RULE 1: Suspicious PowerShell Execution (Execution / T1059.001)
+title: Suspicious Execution of PowerShell with Encoded Commands
+id: e42b7891-381a-4f51-b8f2-89211aa12282
+status: test
+description: Detects execution of PowerShell with encoded command flags which is often used by attackers to obfuscate malicious scripts.
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+tags:
+  - attack.execution
+  - attack.t1059.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\powershell.exe'
+    CommandLine|contains:
+      - ' -e '
+      - ' -enc '
+      - ' -EncodedCommand '
+  condition: selection
+falsepositives:
+  - Legitimate administrative automation scripts using base64 encoding.
+level: high
+
+---
+
+# RULE 2: Multiple Failed Logon Attempts - Potential Brute Force (Credential Access / T1110)
+title: Potential Password Spray or Brute Force Attack via Event 4625
+id: b91f098d-2911-47fa-a801-71e18bb39a11
+status: test
+description: Detects multiple failed logon attempts from the same source IP indicating a potential brute force or password spray attack.
+references:
+  - https://attack.mitre.org/techniques/T1110/
+tags:
+  - attack.credential_access
+  - attack.t1110
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4625
+  condition: selection | count() > 10
+falsepositives:
+  - Users who forgot their password or misconfigured service accounts.
+level: medium
+
+---
+
+# RULE 3: Persistence via Scheduled Task Creation (Persistence / T1053.005)
+title: Scheduled Task Creation via Schtasks Utility
+id: d1710921-6a22-482d-8889-10928a381fa2
+status: test
+description: Detects the creation of new scheduled tasks using schtasks.exe which attackers use for persistence.
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+tags:
+  - attack.persistence
+  - attack.t1053.005
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\schtasks.exe'
+    CommandLine|contains: '/create'
+  condition: selection
+falsepositives:
+  - Software installers and legitimate scheduled administrative tasks.
+level: medium

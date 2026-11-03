@@ -1,0 +1,16 @@
+==================================================
+CYBERION THREATSHIELD - THREAT HUNTING REPORT
+==================================================
+
+HUNT TITLE: Suspicious Outbound PowerShell C2 Connections
+HYPOTHESIS: An attacker has compromised an endpoint and is using PowerShell to establish outbound command-and-control (C2) communications over non-standard network ports.
+
+METHODOLOGY:
+1. Filtered Windows Process Creation logs for powershell.exe execution containing web request commands (Invoke-WebRequest, Net.WebClient).
+2. Correlated process execution timestamps with Network Connection events (Sysmon Event ID 3).
+
+FINDINGS:
+- Identified powershell.exe initiating outbound TCP connections to an external IP address (192.0.2.45) over port 8080.
+- Decoded the command line parameters and confirmed an automated script retrieving remote payloads every 60 seconds.
+
+CONCLUSION: Confirmed Threat (True Positive). Handed over to Incident Response workflow for isolation and containment.
